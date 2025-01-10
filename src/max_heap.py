@@ -12,6 +12,7 @@ import copy
 key = int
 arr_idx = int
 
+
 class MaxHeap:
 
     def __init__(self):
@@ -52,23 +53,21 @@ class MaxHeap:
         except IndexError:
             raise IndexError("cannot replace on empty heap, use push instead")
 
-
-    def _increase_key(self, old_key : key, new_key: key):
-         for idx, key in enumerate(self.array):
-             if key == old_key :
+    def _increase_key(self, old_key: key, new_key: key):
+        for idx, key in enumerate(self.array):
+            if key == old_key:
                 self.array[idx] = new_key
                 self._sift_up(idx)
-             
 
-    def _decrease_key(self, old_key : key, new_key: key):
+    def _decrease_key(self, old_key: key, new_key: key):
         for idx, key in enumerate(self.array):
-             if key == old_key :
+            if key == old_key:
                 self.array[idx] = new_key
                 self._sift_down(idx)
 
-    def _delete(self, del_key : key):
+    def _delete(self, del_key: key):
         for idx, key in enumerate(self.array):
-             if key == del_key :
+            if key == del_key:
                 last_key = self.array.pop()
                 self.array[idx] = last_key
                 self._sift_down(idx)
@@ -81,7 +80,7 @@ class MaxHeap:
     def _sift_up(self, idx: arr_idx):
         if idx == 0:
             return
-        parent_idx = int(idx/2) if idx%2 == 1 else int(idx/2 - 1)
+        parent_idx = int(idx / 2) if idx % 2 == 1 else int(idx / 2 - 1)
         if self.array[idx] > self.array[parent_idx]:
             self._swap_keys(idx, parent_idx)
             self._sift_up(parent_idx)
@@ -93,9 +92,7 @@ class MaxHeap:
             left_idx = 2 * idx + 1
             right_idx = 2 * idx + 2
             child_idx = (
-                left_idx
-                if self.array[left_idx] >= self.array[right_idx]
-                else right_idx
+                left_idx if self.array[left_idx] >= self.array[right_idx] else right_idx
             )
             if self.array[idx] < self.array[child_idx]:
                 self._swap_keys(idx, child_idx)
@@ -111,11 +108,12 @@ class MaxHeap:
 def create_heap() -> MaxHeap:
     return MaxHeap()
 
+
 def make_heap(array: list[int]) -> MaxHeap:
     heap = MaxHeap()
     heap.array = array
     len_arr = len(heap.array)
-    i = int(len_arr/2) if len_arr%2 == 1 else  len_arr/2 - 1
+    i = int(len_arr / 2) if len_arr % 2 == 1 else len_arr / 2 - 1
     i = len(heap.array) - 1
     while i >= 0:
         heap._sift_down(i)
@@ -132,8 +130,9 @@ def merge(heap1: MaxHeap, heap2: MaxHeap) -> MaxHeap:
     if heap1.is_empty():
         new_heap = copy.deepcopy(heap2)
         return new_heap
-    heap = make_heap(heap1.array+heap2.array)
+    heap = make_heap(heap1.array + heap2.array)
     return heap
+
 
 # Meld of two heaps
 # create new heap by joining both heaps, heap1 and heap2
