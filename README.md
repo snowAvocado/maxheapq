@@ -1,12 +1,12 @@
-# binary heap
+# maxheapq
 
-This project implements heap data structure, specifically max binary heaps described on [wikipedia](https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap)
+This project implements heap data structure, specifically **max binary heap** described on [wikipedia](https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap)
 
 The purpose is to implement my own version and compare with 
-already existing [heapq](https://docs.python.org/3/library/heapq.html)
+already existing [heapq](https://docs.python.org/3/library/heapq.html), by default **heapq** implements but we implement max heap here, hence the name **maxheapq**
 
 
-in max heap, the element with highest priority or value will be at the first index of the underhood array, which can be seen as a complete binary tree, where i is index of Parent, with indices 2 * i+1, 2*i+2 as children of the parent
+in max heap, the element with highest priority or value will be at the first index of the underhood array, which can be seen as a complete binary tree, where **i** is index of Parent, with indices **2 * i+ 1**, **2 * i+ 2** as children of the parent
 
 Some basic operations or usage:
 ```

@@ -7,6 +7,7 @@ https://en.wikipedia.org/wiki/max_heap(data_structure)
 """
 
 import copy
+import math
 
 # Supports heap with key type as only int or float
 key = int
