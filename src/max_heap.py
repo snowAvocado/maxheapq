@@ -7,44 +7,53 @@ https://en.wikipedia.org/wiki/max_heap(data_structure)
 """
 
 import copy
-import math
 
-# Supports heap with key type as only int or float
+# Supports heap with key(s) type as only int
 key = int
 arr_idx = int
 
 
 class MaxHeap:
-
+    """ construct inital heap with empty keys """
     def __init__(self):
         self.array = []
 
+    """returns number of keys in the heap"""
     def size(self) -> int:
         return len(self.array)
-
+    
+    """returns True if no keys else False"""
     def is_empty(self) -> bool:
         return len(self.array) == 0
 
+    """returns first key from the heap array, as max key
+       is always at index 0 """
     def find_max(self) -> key:
         try:
             return self.array[0]
         except IndexError:
             raise IndexError("cannot find max on empty heap")
-
+    
+    """ insert the new key at the end of the array and then move 
+        it upwards in the binary tree """
     def insert(self, k: key):
         self.array.append(k)
         self._sift_up(len(self.array) - 1)
 
-    def delete_max(self) -> key:
+    def delete_max(self):
+        """replace the first key with the last key in the heap array, as max key
+        is always at index 0, pop the last key and then move it downwards
+        in the binary tree """
         try:
             max_key = self.array[0]
             last = self.array.pop()
             self.replace(last)
-            return max_key
         except IndexError:
             raise IndexError("cannot pop on empty heap")
 
     def replace(self, k: key):
+        """replace the first key or max key with the new key then move it downwards
+        in the binary tree """
         try:
             if k < self.array[0]:
                 self.array[0] = k
@@ -55,12 +64,21 @@ class MaxHeap:
             raise IndexError("cannot replace on empty heap, use push instead")
 
     def _increase_key(self, old_key: key, new_key: key):
+        """search for the old key index and then update with new key then move it upwards
+        in the binary tree """
+
+        if old_key > new_key:
+            raise  ValueError("new key cannot be smaller than old key")
         for idx, key in enumerate(self.array):
             if key == old_key:
                 self.array[idx] = new_key
                 self._sift_up(idx)
 
     def _decrease_key(self, old_key: key, new_key: key):
+        """search for the old key index and then update with new key then move it downwards
+            in the binary tree """
+        if old_key < new_key:
+            raise  ValueError("old key cannot be smaller than new key")
         for idx, key in enumerate(self.array):
             if key == old_key:
                 self.array[idx] = new_key
@@ -74,11 +92,14 @@ class MaxHeap:
                 self._sift_down(idx)
 
     def _swap_keys(self, i: arr_idx, j: arr_idx):
+        """swap the keys at indices i and j """
         t_key = self.array[i]
         self.array[i] = self.array[j]
         self.array[j] = t_key
 
     def _sift_up(self, idx: arr_idx):
+        """move the key upwards starting at index idx recursively until its parent is greater than itself
+         if no parent is greater, key becomes max or root in binary tree """
         if idx == 0:
             return
         parent_idx = int(idx / 2) if idx % 2 == 1 else int(idx / 2 - 1)
@@ -89,6 +110,8 @@ class MaxHeap:
             return
 
     def _sift_down(self, idx: arr_idx = 0):
+         """move the key downwards starting at index idx recursively until its children is smaller
+            than itself if no children is smaller, key becomes one of the leaf in binary tree """
         try:
             left_idx = 2 * idx + 1
             right_idx = 2 * idx + 2
@@ -107,10 +130,27 @@ class MaxHeap:
 
 
 def create_heap() -> MaxHeap:
+    """creates empty heap"""
     return MaxHeap()
 
-
 def make_heap(array: list[int]) -> MaxHeap:
+    """creates heap with time complexity O(n) Floyd's algorithm.
+
+    according to J. W. J. Williams  adding element at the end of one heap array of size n 
+    and siftup will result in time complexity nlogn, where in the worst case 
+    every last added key will be max key, so sift up will result in logn,
+    hence for n elements worst case is n * log n.
+
+    acording to floyd, we start from nodes at last complete level in the binary
+    tree representation and keep we sift down parent with lower values than children, 
+    for some height k starting from bottom of the tree leaving leaves of the tree,
+    time complexity will be sum of k * (number of elements at height k ), which reduces height for 
+    sift down for most of elements, as most number of elements are concentrated at lower levels, so sum
+    from k = 1 to h-1, i. k from 1 to log n , k * (2 **(log n - k)), for larger n s
+    is O(n)
+
+
+    """
     heap = MaxHeap()
     heap.array = array
     len_arr = len(heap.array)
@@ -122,9 +162,10 @@ def make_heap(array: list[int]) -> MaxHeap:
     return heap
 
 
-# Merge or Union of two heaps,
-# heap1 and heap2 are immutable, read-only according to definition
+# Merge two heaps,
+# heap1 and heap2 to create a new heap
 def merge(heap1: MaxHeap, heap2: MaxHeap) -> MaxHeap:
+    """returns a new heap created from heap1 and heap2 """
     if heap2.is_empty():
         new_heap = copy.deepcopy(heap1)
         return new_heap
@@ -134,9 +175,3 @@ def merge(heap1: MaxHeap, heap2: MaxHeap) -> MaxHeap:
     heap = make_heap(heap1.array + heap2.array)
     return heap
 
-
-# Meld of two heaps
-# create new heap by joining both heaps, heap1 and heap2
-# but they should become invalid according to definition
-# def meld(heap1: MaxHeap, heap2: MaxHeap) -> MaxHeap:
-#     return MaxHeap()
