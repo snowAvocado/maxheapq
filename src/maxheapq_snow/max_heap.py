@@ -14,34 +14,30 @@ arr_idx = int
 
 
 class MaxHeap:
-    """construct inital heap with empty keys"""
 
     def __init__(self):
+        """construct inital heap with empty keys"""
         self.array = []
 
-    """returns number of keys in the heap"""
-
     def size(self) -> int:
+        """returns number of keys in the heap"""
         return len(self.array)
 
-    """returns True if no keys else False"""
-
     def is_empty(self) -> bool:
+        """returns True if no keys else False"""
         return len(self.array) == 0
 
-    """returns first key from the heap array, as max key
-       is always at index 0 """
-
     def find_max(self) -> key:
+        """returns first key from the heap array, as max key
+        is always at index 0 """
         try:
             return self.array[0]
         except IndexError:
             raise IndexError("cannot find max on empty heap")
 
-    """ insert the new key at the end of the array and then move 
-        it upwards in the binary tree """
-
     def insert(self, k: key):
+        """ insert the new key at the end of the array and then move 
+        it upwards in the binary tree """
         self.array.append(k)
         self._sift_up(len(self.array) - 1)
 
