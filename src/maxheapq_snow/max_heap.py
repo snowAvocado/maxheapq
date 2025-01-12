@@ -14,9 +14,9 @@ arr_idx = int
 
 
 class MaxHeap:
-    """construct inital heap with empty keys"""
 
     def __init__(self):
+        """construct inital heap with empty keys"""
         self.array = []
 
     def size(self) -> int:
