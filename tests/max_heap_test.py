@@ -1,5 +1,5 @@
 import unittest
-import src.maxheapq_snow.max_heap as max_heap
+import src.maxheapq.max_heap as max_heap
 
 
 # Test case class
