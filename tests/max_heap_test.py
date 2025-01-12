@@ -33,11 +33,11 @@ class TestMaxHeap(unittest.TestCase):
         max_heap1.replace(0)
         self.assertEqual(max_heap1.array, [7, 4, 5, 1, 2, 3, 0])
 
-        max_heap1.increase_key(0,10)
+        max_heap1.increase_key(0, 10)
         self.assertEqual(max_heap1.find_max(), 10)
-        self.assertEqual(max_heap1.array, [10, 4, 7, 1, 2,3,5])
+        self.assertEqual(max_heap1.array, [10, 4, 7, 1, 2, 3, 5])
 
-        max_heap1.decrease_key(10,0)
+        max_heap1.decrease_key(10, 0)
         self.assertEqual(max_heap1.find_max(), 7)
         self.assertEqual(max_heap1.array, [7, 4, 5, 1, 2, 3, 0])
 
