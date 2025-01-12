@@ -11,6 +11,7 @@ in max heap, the element with highest priority or value will be at the first ind
 ## Documentation
 https://test.pypi.org/project/maxheapq-snow
 
+
 ## install and use package
 
 install the package using below command to use locally on your machine
@@ -18,13 +19,13 @@ install the package using below command to use locally on your machine
 python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps maxheapq-snow
 
 
-Some basic operations or usage:
+Some basic operations:
 
     def max_heap.create_heap()
       - create an empty max heap 
 
     def size(self) -> int:
-      - returns aize or number of keys in the max heap
+      - returns size or number of keys in the max heap
 
     def is_empty(self) -> bool:
       - returns True if no keys else False
@@ -63,6 +64,9 @@ Some basic operations or usage:
 
     def merge(heap1: MaxHeap, heap2: MaxHeap) -> MaxHeap:
       - returns a new max heap created by merging heap1 and heap2
+
+
+
 
 
 
