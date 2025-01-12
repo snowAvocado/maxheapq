@@ -29,15 +29,15 @@ class MaxHeap:
 
     def find_max(self) -> key:
         """returns first key from the heap array, as max key
-        is always at index 0 """
+        is always at index 0"""
         try:
             return self.array[0]
         except IndexError:
             raise IndexError("cannot find max on empty heap")
 
     def insert(self, k: key):
-        """ insert the new key at the end of the array and then move 
-        it upwards in the binary tree """
+        """insert the new key at the end of the array and then move
+        it upwards in the binary tree"""
         self.array.append(k)
         self._sift_up(len(self.array) - 1)
 
@@ -100,12 +100,12 @@ class MaxHeap:
             if self.find_max() != max_key:
                 return
 
-        num_del_keys = 0      
+        num_del_keys = 0
         for idx, key in enumerate(self.array):
             if key == del_key:
                 num_del_keys = num_del_keys + 1
-                self.increase_key( key, max_key)
-        
+                self.increase_key(key, max_key)
+
         while num_del_keys > 0:
             self.delete_max()
             num_del_keys = num_del_keys - 1
