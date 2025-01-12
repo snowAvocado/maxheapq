@@ -8,39 +8,61 @@ already existing [heapq](https://docs.python.org/3/library/heapq.html), by defau
 
 in max heap, the element with highest priority or value will be at the first index of the underhood array, which can be seen as a complete binary tree, where **i** is index of Parent, with indices **2 * i+ 1**, **2 * i+ 2** as children of the parent
 
+## Documentation
+https://test.pypi.org/project/maxheapq-snow
+
+## install and use package
+
+install the package using below command to use locally on your machine
+
+python3 -m pip install --index-url https://test.pypi.org/simple/ --no-deps maxheapq-snow
+
+
 Some basic operations or usage:
-```
 
-heap = max_heap.make_heap([7, 2, 4, 1, 9, 3]) 
-[9, 7, 4, 1, 2, 3]
+    def max_heap.create_heap()
+      - create an empty max heap 
+
+    def size(self) -> int:
+      - returns aize or number of keys in the max heap
+
+    def is_empty(self) -> bool:
+      - returns True if no keys else False
+
+    def find_max(self) -> key:
+      - returns key with maximum value
 
 
-print(heap)
+    def insert(self, k: key):
+     -  inserts new key k in the heap.
 
-   9    
- 7   4  
-1 2 3 
+    def delete_max(self):
+        - deletes max key or key at index 0 in the heap array.
+
+    def replace(self, k: key):
+        - replace the first key or max key with the new key k .
 
 
-heap.find_max()
-9
+    def increase_key(self, old_key: key, new_key: key):
+        - search for the old key indices and then update with new key value
+          new_key > old_key
 
-heap.insert(5)  
-[9, 7, 5, 1, 2, 3, 4]
 
-heap.delete_max()
-[7, 4, 5, 1, 2, 3]
+    def decrease_key(self, old_key: key, new_key: key):
+       - search for the old key indices and then update with new key value
+         new_key < old_key
 
-heap.insert(10)
-[10, 4, 7, 1, 2, 3, 5]
 
-heap.size() ==  7
-True
+    def delete(self, del_key: key):
+       - deletes keys that matches del_key
 
-heap.is_empty()
-False
 
-heap.replace(0)
-[7, 4, 5, 1, 2, 3, 0]
+    def make_heap(array: list[int]) -> MaxHeap:
+      - creates max heap from list of integers with time
+        complexity O(n) according to Floyd's algorithm.
 
-```
+    def merge(heap1: MaxHeap, heap2: MaxHeap) -> MaxHeap:
+      - returns a new max heap created by merging heap1 and heap2
+
+
+

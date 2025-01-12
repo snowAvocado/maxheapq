@@ -1,5 +1,5 @@
 import unittest
-import src.max_heap as max_heap
+import src.maxheapq_snow.max_heap as max_heap
 
 
 # Test case class
@@ -32,6 +32,24 @@ class TestMaxHeap(unittest.TestCase):
 
         max_heap1.replace(0)
         self.assertEqual(max_heap1.array, [7, 4, 5, 1, 2, 3, 0])
+
+        max_heap1.increase_key(0,10)
+        self.assertEqual(max_heap1.find_max(), 10)
+        self.assertEqual(max_heap1.array, [10, 4, 7, 1, 2,3,5])
+
+        max_heap1.decrease_key(10,0)
+        self.assertEqual(max_heap1.find_max(), 7)
+        self.assertEqual(max_heap1.array, [7, 4, 5, 1, 2, 3, 0])
+
+        max_heap2 = max_heap.make_heap([7, 2, 4, 1, 9, 3, 9])
+        max_heap2.delete(9)
+        self.assertEqual(max_heap2.size(), 5)
+        self.assertEqual(max_heap2.array, [7, 3, 4, 1, 2])
+
+        max_heap3 = max_heap.make_heap([9, 9, 9, 1, 9, 9, 9])
+        max_heap3.delete(9)
+        self.assertEqual(max_heap3.size(), 1)
+        self.assertEqual(max_heap3.array, [1])
 
     def test_merge_heap(self):
         max_heap1 = max_heap.make_heap([7, 2, 4, 1, 9, 3])

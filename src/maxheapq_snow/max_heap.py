@@ -19,29 +19,25 @@ class MaxHeap:
     def __init__(self):
         self.array = []
 
-    """returns number of keys in the heap"""
-
     def size(self) -> int:
+        """returns number of keys in the heap"""
         return len(self.array)
 
-    """returns True if no keys else False"""
-
     def is_empty(self) -> bool:
+        """returns True if no keys else False"""
         return len(self.array) == 0
 
-    """returns first key from the heap array, as max key
-       is always at index 0 """
-
     def find_max(self) -> key:
+        """returns first key from the heap array, as max key
+        is always at index 0 """
         try:
             return self.array[0]
         except IndexError:
             raise IndexError("cannot find max on empty heap")
 
-    """ insert the new key at the end of the array and then move 
-        it upwards in the binary tree """
-
     def insert(self, k: key):
+        """ insert the new key at the end of the array and then move 
+        it upwards in the binary tree """
         self.array.append(k)
         self._sift_up(len(self.array) - 1)
 
@@ -68,7 +64,7 @@ class MaxHeap:
         except IndexError:
             raise IndexError("cannot replace on empty heap, use push instead")
 
-    def _increase_key(self, old_key: key, new_key: key):
+    def increase_key(self, old_key: key, new_key: key):
         """search for the old key index and then update with new key then move it upwards
         in the binary tree"""
 
@@ -79,7 +75,7 @@ class MaxHeap:
                 self.array[idx] = new_key
                 self._sift_up(idx)
 
-    def _decrease_key(self, old_key: key, new_key: key):
+    def decrease_key(self, old_key: key, new_key: key):
         """search for the old key index and then update with new key then move it downwards
         in the binary tree"""
         if old_key < new_key:
@@ -89,12 +85,30 @@ class MaxHeap:
                 self.array[idx] = new_key
                 self._sift_down(idx)
 
-    def _delete(self, del_key: key):
+    def delete(self, del_key: key):
+        """delete the key(s) in the heap, we increase the keys that gets deleted with max value
+        and sift up in the binary tree and then delete the max, number of times we increase
+        the keys"""
+
+        try:
+            max_key = self.array[0]
+        except:
+            IndexError("cannot _delete on empty heap")
+
+        while del_key == max_key:
+            self.delete_max()
+            if self.find_max() != max_key:
+                return
+
+        num_del_keys = 0      
         for idx, key in enumerate(self.array):
             if key == del_key:
-                last_key = self.array.pop()
-                self.array[idx] = last_key
-                self._sift_down(idx)
+                num_del_keys = num_del_keys + 1
+                self.increase_key( key, max_key)
+        
+        while num_del_keys > 0:
+            self.delete_max()
+            num_del_keys = num_del_keys - 1
 
     def _swap_keys(self, i: arr_idx, j: arr_idx):
         """swap the keys at indices i and j"""
@@ -148,7 +162,7 @@ def make_heap(array: list[int]) -> MaxHeap:
     every last added key will be max key, so sift up will result in logn,
     hence for n elements worst case is n * log n.
 
-    acording to floyd, we start from nodes at last complete level in the binary
+    acording to Floyd, we start from nodes at last complete level in the binary
     tree representation and keep we sift down parent with lower values than children,
     for some height k starting from bottom of the tree leaving leaves of the tree,
     time complexity will be sum of k * (number of elements at height k ), which reduces height for
